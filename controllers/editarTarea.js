@@ -1,17 +1,17 @@
-import {leerTareas, escribirTareas} from '../controllers/tareasController.js';
+import { leerTareas, escribirTareas } from '../controllers/tareasController.js';
 import inquirer from 'inquirer';
 import _ from 'lodash';
-import { esperarEnter } from '../utils/ui.js';
-
+import { esperarEnter } from '../utils/esperarTecla.js';
 
 export async function editarTarea() {
-  const tareas = await leerTareas();
+  const tareas = await leerTareas(); // Leer todas las tareas existentes
 
   if (tareas.length === 0) {
     console.log('⚠️ No hay tareas para editar.');
     return;
   }
 
+  // Mostrar lista de tareas y pedir al usuario cuál desea editar
   const { indice } = await inquirer.prompt([
     {
       type: 'list',
@@ -24,6 +24,7 @@ export async function editarTarea() {
     }
   ]);
 
+  // Solicitar la nueva descripción para la tarea seleccionada
   const { nuevaDescripcion } = await inquirer.prompt([
     {
       type: 'input',
@@ -32,9 +33,9 @@ export async function editarTarea() {
     }
   ]);
 
-  tareas[indice].descripcion = nuevaDescripcion.trim();
-  await escribirTareas(tareas);
+  tareas[indice].descripcion = nuevaDescripcion.trim(); // Actualizar tarea
+  await escribirTareas(tareas);                         // Guardar cambios
   console.log('✏️ Tarea actualizada correctamente.');
-  await esperarEnter();
-  
+
+  await esperarEnter(); // Esperar ENTER y limpiar pantalla
 }

@@ -1,16 +1,17 @@
 import { leerTareas, escribirTareas } from './tareasController.js';
 import inquirer from 'inquirer';
-import { esperarEnter } from '../utils/ui.js';
+import { esperarEnter } from '../utils/esperarTecla.js';
 
 export async function eliminarTarea() {
-  const tareas = await leerTareas();
+  const tareas = await leerTareas(); // Obtener todas las tareas
 
   if (tareas.length === 0) {
     console.log('⚠️ No hay tareas para eliminar.');
     return;
   }
 
-  const { indice } = await inquirer.prompt ([
+  // Mostrar lista de tareas para seleccionar cuál eliminar
+  const { indice } = await inquirer.prompt([
     {
       type: 'list',
       name: 'indice',
@@ -20,7 +21,9 @@ export async function eliminarTarea() {
         value: i
       }))
     }
-  ])
+  ]);
+
+  // Confirmar la eliminación con el usuario
   const confirmacion = await inquirer.prompt([
     {
       type: 'confirm',
@@ -28,6 +31,8 @@ export async function eliminarTarea() {
       message: `¿Estás seguro de que quieres eliminar la tarea "${tareas[indice].descripcion}"?`
     }
   ]);
+
+  // Si el usuario confirma, se elimina la tarea y se guarda el nuevo archivo
   if (confirmacion.confirmar) {
     tareas.splice(indice, 1);
     await escribirTareas(tareas);
@@ -35,5 +40,6 @@ export async function eliminarTarea() {
   } else {
     console.log('❌ Eliminación cancelada.');
   }
-  await esperarEnter();
+
+  await esperarEnter(); // Espera ENTER antes de volver al menú
 }

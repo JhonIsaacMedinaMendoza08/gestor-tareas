@@ -21,6 +21,10 @@ Un sistema de gestión de tareas por consola hecho con Node.js, diseñado para c
 ```
 .
 ├── controllers/
+│   ├── completarTarea.js
+│   ├── editarTarea.js
+│   ├── eliminarTarea.js
+│   ├── listarTareas.js
 │   └── tareasController.js
 ├── data/
 │   └── tareas.json
