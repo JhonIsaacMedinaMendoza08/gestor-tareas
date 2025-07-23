@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^5.4.1",
     "inquirer": "^12.8.2",
     "lodash": "^4.17.21",
     "nanoid": "^5.1.5"

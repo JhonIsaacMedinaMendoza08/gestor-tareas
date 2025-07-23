@@ -1,17 +1,52 @@
 [
   {
-    "id": "tarea_1",
-    "descripcion": "Hacer trabajo de Node",
+    "id": "VRglN1ezN0GKXoYIXRXdC",
+    "descripcion": "Revisar correos pendientes",
+    "completada": false
+  },
+  {
+    "id": "X_a7rnHJnj4oSbuJkYzRO",
+    "descripcion": "Actualizar reporte semanal de avances",
     "completada": true
   },
   {
-    "id": "tarea_2",
-    "descripcion": "holaaaa",
+    "id": "JYHhiCwhPlDpWglcdrjPi",
+    "descripcion": "Llamar al proveedor de servicios",
     "completada": false
   },
   {
-    "id": "_r7eWj7w4f43iR6rr1XSl",
-    "descripcion": "buenasss",
+    "id": "jMIwF38Qi8e6M6M1Y3WlH",
+    "descripcion": "Organizar carpetas del proyecto",
+    "completada": true
+  },
+  {
+    "id": "S6Zz4XSBkIZJA1TKK2kY_",
+    "descripcion": "Estudiar documentación de Lodash",
     "completada": false
+  },
+  {
+    "id": "2DSqlRhpY6r4uFsB6Ebfv",
+    "descripcion": "Hacer copia de seguridad de archivos",
+    "completada": false
+  },
+  {
+    "id": "fhfr0ZG0zNdvy1jRiXkup",
+    "descripcion": "Realizar reunión con el equipo de diseño",
+    "completada": true
+  },
+  {
+    "id": "wwYZYqVfrvUiFIuGjNbru",
+    "descripcion": "Enviar propuesta al cliente",
+    "completada": false
+  },
+  {
+    "id": "Dnv400pZFmE0IqjW4bytW",
+    "descripcion": "Preparar presentación del viernes",
+    "completada": false
+  },
+  {
+    "id": "tr2OFHX38uZa7es1-NofD",
+    "descripcion": "Leer artículos sobre productividad",
+    "completada": true
   }
 ]

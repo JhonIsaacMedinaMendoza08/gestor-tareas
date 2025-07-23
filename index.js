@@ -1,5 +1,9 @@
 import mostrarMenu from './utils/menu.js';
-import { listarTareas, agregarTarea, editarTarea, eliminarTarea, completarTarea } from './controllers/tareasController.js';
+import { agregarTarea } from './controllers/tareasController.js';
+import { editarTarea } from './controllers/editarTarea.js';
+import { listarTareas } from './controllers/listarTareas.js';
+import { eliminarTarea } from './controllers/eliminarTarea.js';
+import { completarTarea } from './controllers/completarTarea.js';
 
 async function main() {
   let salir = false;
