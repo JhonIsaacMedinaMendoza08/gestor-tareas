@@ -6,6 +6,7 @@ async function main() {
 
   while (!salir) {
     const opcion = await mostrarMenu();
+    console.clear();
 
     switch (opcion) {
       case '1':

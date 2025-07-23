@@ -1,7 +1,8 @@
 import inquirer from 'inquirer';
-import { tareas } from '../data/tareas.js';
 import fs from 'fs/promises';
 import path from 'path';
+import _ from 'lodash';
+import { nanoid } from 'nanoid';
 
 
 const RUTA = path.resolve('./data/tareas.json');
@@ -24,24 +25,45 @@ export async function escribirTareas(tareas) {
 }
 export async function agregarTarea() {
   const { descripcion } = await inquirer.prompt([
-    { type: 'input', name: 'descripcion', message: 'Descripción de la tarea:',
+    {
+      type: 'input',
+      name: 'descripcion',
+      message: 'Descripción de la tarea:',
       validate: (input) => {
-        if (input.trim() === '') {
+        if (_.isEmpty(_.trim(input))) {
           return '❌ La descripción no puede estar vacía.';
         }
-        return true;}
-     }
+        return true;
+      }
+    }
   ]);
 
+  const tareas = await leerTareas();
+  const descripcionNormalizada = descripcion.trim().toLowerCase();
+
+  const yaExiste = tareas.some(t =>
+    t.descripcion.trim().toLowerCase() === descripcionNormalizada
+  );
+
+  if (yaExiste) {
+    console.log('⚠️ Ya existe una tarea con esa descripción.');
+    return;
+  }
+
   const nuevaTarea = {
-    id: Date.now(),
+    id: nanoid(),
     descripcion: descripcion.trim(),
     completada: false
   };
- 
-  const tareas = await leerTareas();
+
   tareas.push(nuevaTarea);
-  await escribirTareas(tareas);
+
+  // Aplicamos _.uniqBy por si existieran duplicados "forzados"
+  const tareasUnicas = _.uniqBy(tareas, t =>
+    t.descripcion.trim().toLowerCase()
+  );
+
+  await escribirTareas(tareasUnicas);
   console.log('✅ Tarea agregada correctamente.');
 }
 
@@ -53,11 +75,15 @@ export async function listarTareas() {
             console.log('⚠️ No hay tareas para mostrar.');
             return;
         }
-        console.log('📋 Lista de Tareas:')
-        tareas.forEach((tarea, index) => {
+
+        // Ordenamos: primero las no completadas, luego las completadas
+        const tareasOrdenadas = _.orderBy(tareas, ['completada'], ['asc']);
+
+        console.log('📋 Lista de Tareas(Pendientes primero):')
+        tareasOrdenadas.forEach((tarea, index) => {
             console.log(`${index + 1}. ${tarea.descripcion} `);
             console.log(`   🆔 ID: ${tarea.id}`);
-            console.log(`   ✅ Completada: ${tarea.completada ? 'Sí' : 'No'}`);
+            console.log(`   📚 Completada: ${tarea.completada ? '✅ Sí' : '❌ No'}`);
             console.log('-------------------------');
         });
 
