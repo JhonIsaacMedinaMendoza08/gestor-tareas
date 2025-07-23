@@ -24,7 +24,13 @@ export async function escribirTareas(tareas) {
 }
 export async function agregarTarea() {
   const { descripcion } = await inquirer.prompt([
-    { type: 'input', name: 'descripcion', message: 'Descripción de la tarea:' }
+    { type: 'input', name: 'descripcion', message: 'Descripción de la tarea:',
+      validate: (input) => {
+        if (input.trim() === '') {
+          return '❌ La descripción no puede estar vacía.';
+        }
+        return true;}
+     }
   ]);
 
   const nuevaTarea = {
@@ -134,7 +140,7 @@ export async function eliminarTarea() {
 
 export async function completarTarea() {
   const tareas = await leerTareas();
-  
+
   const pendientes = tareas.filter(t => !t.completada);
 
 
